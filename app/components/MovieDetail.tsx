@@ -1,28 +1,21 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { movieDetail } from "../Services/Apis";
+import { movieDetail } from "../../Services/Apis";
 import "@/Styles/MovieDetail.css";
+import { MovieModel } from "@/Types";
 
 const MovieDetail = () => {
-  const { id } = useParams<{ id: string }>();
-  console.log("id", id);
-
-  const [movieDetailData, setMovieDetailData] = useState<any>();
-
+  const [movieDetailData, setMovieDetailData] = useState<MovieModel>();
   useEffect(() => {
-    if (id) {
-      movieDetail(id)
-        .then((response) => {
-          console.log("response", response);
-          setMovieDetailData(response.data);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        })
-        .catch((error) => {
-          console.error("Error fetching movie detail:", error);
-        });
-    }
-  }, [id]);
+    const getMovies = async () => {
+      const response = await fetch("/api/movies/id?id=${id}");
+      const movies = await response.json();
+      setMovieDetailData(movies);
+    };
+
+    getMovies();
+  }, []);
 
   return (
     <div className="movie-detail-container">

@@ -1,4 +1,4 @@
-import BaseUrl from "./BaseUrl";
+import BaseUrl from "../app/api/BaseUrl";
 import { AxiosResponse } from "axios";
 
 const popularMoviesApi = "/movie/popular?language=en-US&page={page}";
