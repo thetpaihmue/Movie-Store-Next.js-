@@ -8,14 +8,12 @@ async function fetchMovies(id: string) {
   );
 
   const movies = await response.json();
-  console.log("single" + movies);
   return movies;
 }
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
-  console.log("id" + id);
   const movies = id && (await fetchMovies(id));
   return NextResponse.json(movies);
 }

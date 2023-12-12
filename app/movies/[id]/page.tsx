@@ -2,19 +2,16 @@
 import { MovieModel } from "@/Types";
 import { useEffect, useState } from "react";
 import "@/app/Styles/MovieDetail.css";
-import SearchMovies from "@/app/components/SearchMovies";
 
 interface Params {
   id: string;
 }
 const page = ({ params }: { params: Params }) => {
   const [movieDetailData, setMovieDetailData] = useState<MovieModel>();
-  console.log("params", params);
   useEffect(() => {
     const getMovies = async () => {
       const response = await fetch(`/api/movies/id?id=${params.id}`);
       const movies = await response.json();
-      console.log(movies);
       setMovieDetailData(movies);
     };
 

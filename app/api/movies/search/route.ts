@@ -13,7 +13,6 @@ async function fetchMovies(query: string) {
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  console.log(searchParams.get("query"));
   const query = searchParams.get("query");
 
   const movies = query && (await fetchMovies(query));

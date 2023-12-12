@@ -1,8 +1,7 @@
-import Image from "next/image";
 import { MovieListModel } from "@/Types";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/app/Styles/Movies.css";
-import { Button, Card, Alert, Spinner } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import placeholder from "@/assets/placeholder.jpg";
 import Link from "next/link";
 import Pagination from "./Pagination";

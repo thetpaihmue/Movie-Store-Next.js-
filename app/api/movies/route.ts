@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import BaseUrl from "../BaseUrl";
 
-async function fetchMovies() {
+async function fetchMovies(page: number) {
   const response = await fetch(
-    BaseUrl.baseURL + "/movie/popular?language=en-US&page=1",
+    BaseUrl.baseURL + `/movie/popular?language=en-US&page=${page}`,
     BaseUrl
   );
 
@@ -12,6 +12,8 @@ async function fetchMovies() {
 }
 
 export async function GET(request: Request) {
-  const movies = await fetchMovies();
+  const { searchParams } = new URL(request.url);
+  const page = searchParams.get("page");
+  const movies = page && (await fetchMovies(Number(page)));
   return NextResponse.json(movies);
 }

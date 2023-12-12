@@ -9,14 +9,14 @@ const Navi = () => {
         <Container>
           <Navbar.Brand
             style={{ color: " #90cea1", fontSize: "20px" }}
-            href={`/`}
+            href={`/1`}
           >
             Movie Store
           </Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link
               style={{ color: "#fff", fontSize: "15px", paddingTop: "11px" }}
-              href={`/`}
+              href={`/1`}
             >
               Movies
             </Nav.Link>

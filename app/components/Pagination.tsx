@@ -1,52 +1,27 @@
-import React from "react";
-import { Pagination as BootstrapPagination } from "react-bootstrap";
+"use client";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../Styles/Movies.css";
+import { useState } from "react";
+import { Pagination } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 
 interface PaginationProps {
   total_pages: number;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ total_pages }) => {
+const PaginationBar: React.FC<PaginationProps> = ({ total_pages }) => {
   const router = useRouter();
+  const [currentPage, setCurrentPage] = useState<number>(
+    Number(window.location.pathname.split("/").pop()) || 1
+  );
+  const visiblePages = 5;
 
-  const currentPage = 1;
-  const totalPagesToShow = 5;
+  const startPage = Math.max(1, currentPage - Math.floor(visiblePages / 2));
+  const endPage = Math.min(total_pages, startPage + visiblePages - 1);
 
   const handlePageChange = (page: number) => {
+    setCurrentPage(page);
     router.push(`/${page}`);
-  };
-
-  const renderPageItems = () => {
-    const pageItems = [];
-    const startPage = Math.max(
-      1,
-      currentPage - Math.floor(totalPagesToShow / 2)
-    );
-    const endPage = Math.min(total_pages, startPage + totalPagesToShow - 1);
-
-    if (startPage > 1) {
-      // Render ellipsis if startPage is not the first page
-      pageItems.push(<BootstrapPagination.Ellipsis key="ellipsis-start" />);
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      pageItems.push(
-        <BootstrapPagination.Item
-          key={i}
-          active={currentPage === i}
-          onClick={() => handlePageChange(i)}
-        >
-          {i}
-        </BootstrapPagination.Item>
-      );
-    }
-
-    if (endPage < total_pages) {
-      // Render ellipsis if endPage is not the last page
-      pageItems.push(<BootstrapPagination.Ellipsis key="ellipsis-end" />);
-    }
-
-    return pageItems;
   };
 
   return (
@@ -57,29 +32,35 @@ const Pagination: React.FC<PaginationProps> = ({ total_pages }) => {
         marginTop: "20px",
       }}
     >
-      <BootstrapPagination>
-        <BootstrapPagination.First
-          onClick={() => handlePageChange(1)}
-          disabled={currentPage === 1}
-        />
-        <BootstrapPagination.Prev
+      <Pagination>
+        <Pagination.First onClick={() => handlePageChange(1)} />
+        <Pagination.Prev
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         />
 
-        {renderPageItems()}
+        {startPage > 1 && <Pagination.Ellipsis />}
 
-        <BootstrapPagination.Next
+        {[...Array(endPage - startPage + 1)].map((_, index) => (
+          <Pagination.Item
+            key={startPage + index}
+            active={startPage + index === currentPage}
+            onClick={() => handlePageChange(startPage + index)}
+          >
+            {startPage + index}
+          </Pagination.Item>
+        ))}
+
+        {endPage < total_pages && <Pagination.Ellipsis />}
+
+        <Pagination.Next
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === total_pages}
         />
-        <BootstrapPagination.Last
-          onClick={() => handlePageChange(total_pages)}
-          disabled={currentPage === total_pages}
-        />
-      </BootstrapPagination>
+        <Pagination.Last onClick={() => handlePageChange(total_pages)} />
+      </Pagination>
     </div>
   );
 };
 
-export default Pagination;
+export default PaginationBar;
