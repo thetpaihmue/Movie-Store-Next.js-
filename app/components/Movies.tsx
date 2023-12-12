@@ -1,7 +1,8 @@
+import Image from "next/image";
 import { MovieListModel } from "@/Types";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/app/Styles/Movies.css";
-import { Card } from "react-bootstrap";
+import { Button, Card, Alert, Spinner } from "react-bootstrap";
 import placeholder from "@/assets/placeholder.jpg";
 import Link from "next/link";
 import Pagination from "./Pagination";
@@ -32,6 +33,10 @@ export default function Movies({ movies }: { movies: MovieListModel }) {
               fontSize: "15px",
               fontWeight: "bold",
               textAlign: "center",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              maxWidth: "100%",
             }}
           >
             {movie.title}
