@@ -13,6 +13,7 @@ const page = ({ params }: { params: Params }) => {
       const response = await fetch(`/api/movies/id?id=${params.id}`);
       const movies = await response.json();
       setMovieDetailData(movies);
+      window.scrollTo(0, 0);
     };
 
     getMovies();
