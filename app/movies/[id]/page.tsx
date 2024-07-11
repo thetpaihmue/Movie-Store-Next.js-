@@ -6,7 +6,7 @@ import "@/app/Styles/MovieDetail.css";
 interface Params {
   id: string;
 }
-const page = ({ params }: { params: Params }) => {
+const Page = ({ params }: { params: Params }) => {
   const [movieDetailData, setMovieDetailData] = useState<MovieModel>();
   useEffect(() => {
     const getMovies = async () => {
@@ -21,27 +21,27 @@ const page = ({ params }: { params: Params }) => {
 
   return (
     <>
-      <div className="movie-detail-container">
+      <div className='movie-detail-container'>
         {movieDetailData && (
           <div
-            className="background-image"
+            className='background-image'
             style={{
               backgroundImage: `url('https://www.themoviedb.org/t/p/original/${movieDetailData.backdrop_path}')`,
             }}
           ></div>
         )}
 
-        <div className="content">
-          <div className="overlay-image">
+        <div className='content'>
+          <div className='overlay-image'>
             {movieDetailData && (
               <img
                 src={`https://www.themoviedb.org/t/p/original/${movieDetailData.backdrop_path}`}
-                alt="Movie Backdrop"
+                alt='Movie Backdrop'
               />
             )}
           </div>
 
-          <div className="text-content">
+          <div className='text-content'>
             <h3>{movieDetailData?.original_title}</h3>
             <p>{movieDetailData?.overview}</p>
           </div>
@@ -51,4 +51,4 @@ const page = ({ params }: { params: Params }) => {
   );
 };
 
-export default page;
+export default Page;
